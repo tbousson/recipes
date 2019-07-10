@@ -16,7 +16,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        return Recipe::all();
+        return Recipe::with('category')->get();
     }
 
     /**
@@ -50,7 +50,7 @@ class RecipeController extends Controller
         
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required|String|min:2|unique:recipes,name',
+            'name' => "required|String|min:2|unique:recipes,name,$recipe->id",
             'category_id' => 'required',
             'ingredients' => 'required',
             'directions' => 'required',

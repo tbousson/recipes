@@ -32,7 +32,7 @@ class CategoryController extends Controller
     {
         return response($request);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|String|min:2|unique:categories,name'
+            'name' => "required|String|min:2|unique:categories,name,$category->id"
         ]);
 
         if ($validator->fails()) {

@@ -13,6 +13,6 @@ class Recipe extends Model
     protected $guarded = ["id","created_at","updated_at"]; // not mass-assignable
 
     public function category(){
-        return $this->belongsTo('App\Category'); //relatie met category
+        return $this->belongsTo('App\Category')->withDefault(['name' =>'Geen Categorie']); //relatie met category
     }
 }

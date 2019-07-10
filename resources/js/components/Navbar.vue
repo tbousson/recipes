@@ -1,11 +1,11 @@
 <template>
     <div>
          <nav class="navbar navbar-expand-lg navbar-light bg-info">
-            <router-link to="/home"><span class="navbar-brand" href="#">Navbar</span></router-link>
+            <router-link to="/home"><span class="navbar-brand" to="/">Recipes</span></router-link>
             
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <router-link to="/home" class="nav-link">Home</router-link>
+                <router-link to="/" class="nav-link">Home</router-link>
             </li>
            <li class="nav-item">
                <router-link to="/admin/dashboard" class="nav-link">Dashboard</router-link>

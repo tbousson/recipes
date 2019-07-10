@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 // });
 
 Route::namespace('API')->group(function () {
+    Route::get('/front','FrontController@index');
     Route::apiResource('/categories','CategoryController');
     Route::apiResource('/recipes','RecipeController');
     });

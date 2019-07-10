@@ -33,15 +33,28 @@
 
 - Testen van CRUD via Insomnia REST client.
 
+- Set up Vue (app.js), voeg HomeController toe, return view (home.blade.php) en start vue Development
+
+  ```
+  php artisan make:controller HomeController
+  npm run watch
+  ```
+
+  
+
 - Install Vuex, Axios
 
   ```
   npm install vuex axios vue-router
   ```
 
-- Set up vue Router en Store
+- Set up VueRouter en Store (App.js, router/index.js, store/index.js)
 
-- 
+- Maak nieuwe views aan in (resources/js/views) en de routes + componenten in route/index.js
+
+- Actions, Mutations, Getters voor Recipes en Categories (store.js)
+
+- Recipes en Category in backend (recipes.vue en categories.vue)
 
   ```
   

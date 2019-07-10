@@ -11,4 +11,4 @@
 |
 */
 
-Route::view('/','test');
+Route::view("/",'home');
