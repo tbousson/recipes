@@ -5,7 +5,8 @@ import Categories from "../views/Categories";
 import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
-import {store} from "../store"
+import Recipe from "../views/Recipe";
+import {store} from "../store";
 let routes = [
     {
         path: '/',
@@ -22,6 +23,18 @@ let routes = [
         path: '/admin/recipes',
         name: "recipes",
         component: Recipes,
+        meta: { middlewareAuth: true }
+    },
+    {
+        path: '/admin/recipes/create',
+        name: "recipe",
+        component: Recipe,
+        meta: { middlewareAuth: true }
+    },
+    {
+        path: '/admin/recipes/:id',
+        name: "editrecipe",
+        component: Recipe,
         meta: { middlewareAuth: true }
     },
     {

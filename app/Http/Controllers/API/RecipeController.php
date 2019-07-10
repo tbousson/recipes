@@ -73,6 +73,6 @@ class RecipeController extends Controller
     {
         $rec = $recipe->name;
         $recipe->delete();
-        return response()->json("Category $rec has been Deleted");
+        return response()->json("Recipe $rec has been Deleted");
     }
 }

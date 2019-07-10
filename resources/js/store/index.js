@@ -58,6 +58,7 @@ export const store = new Vuex.Store({
             })
         },
         deleteCategory(context, id){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
             axios.delete('api/categories/' + id)
         .then(response => {
           context.commit('deleteCategory', id)
@@ -67,6 +68,7 @@ export const store = new Vuex.Store({
         })
         },
         addCategory(context, data){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
             axios.post('/api/categories', data)
                 .then(response => {
                   context.commit('addCategory', response.data)
@@ -74,7 +76,27 @@ export const store = new Vuex.Store({
                 .catch(error => {
                   console.log(error)
                 })
-        }
+        },
+        createRecipe(context, data){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+            axios.post('/api/recipes', data)
+                .then(response => {
+                  context.commit('createRecipe', response.data)
+                })
+                .catch(error => {
+                  console.log(error)
+                })
+        },
+        deleteRecipe(context, id){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+            axios.delete('/api/recipes/' + id)
+        .then(response => {
+          context.commit('deleteRecipe', id)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        },
 },
     mutations: {
         retrieveFrontRecipes(state, payload) {
@@ -95,6 +117,21 @@ export const store = new Vuex.Store({
               id: payload.id,
               name: payload.name
             })
+          },
+          createRecipe(state, payload) {
+            state.recipes.push({
+                id: payload.id,
+                name: payload.name,
+                category_id: payload.category_id,
+                ingredients: payload.ingredients,
+                directions: payload.directions,
+                time: payload.time,
+                show: payload.show
+            })
+          },
+          deleteRecipe(state, payload) {
+            const index = state.recipes.findIndex(item => item.id == payload)
+            state.recipes.splice(index, 1)
           },
     }
 });

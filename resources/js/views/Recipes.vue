@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <router-link to="/admin/recipes/create">Create Recipe</router-link>
         <table class="table">
     <thead>
         <tr>
@@ -11,6 +11,7 @@
             <th>Stappen</th>
             <th>Tijd</th>
             <th>Show</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td>{{recipe.directions}}</td>
             <td>{{recipe.time}}</td>
             <td>{{recipe.show}}</td>
+            <td><button @click="deleteRecipe(recipe.id)">Delete</button></td>
         </tr>            
     </tbody>
 </table>
@@ -42,6 +44,12 @@ export default {
     },
     computed:{
         recipes() { return this.$store.getters.allRecipes }
+    },
+    methods: {
+        deleteRecipe(id) {
+           
+        this.$store.dispatch('deleteRecipe', id)
+    },
     }
 
 }
