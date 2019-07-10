@@ -33,5 +33,19 @@
 
 - Testen van CRUD via Insomnia REST client.
 
+- Install Vuex, Axios
+
+  ```
+  npm install vuex axios vue-router
+  ```
+
+- Set up vue Router en Store
+
 - 
+
+  ```
+  
+  ```
+
+  
 
