@@ -1,5 +1,5 @@
 <template>
-    <modal name="CategoryCreate">
+    <modal name="CategoryCreateModal">
   hello, world!
 </modal>
 </template>

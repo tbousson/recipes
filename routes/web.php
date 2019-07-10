@@ -11,4 +11,5 @@
 |
 */
 
-Route::view("/",'home');
+Route::any('{all?}', 'HomeController@index')
+->where('all', '.+');

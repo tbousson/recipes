@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import auth from "./modules/auth";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -9,7 +10,9 @@ export const store = new Vuex.Store({
         recipes: [],
         categories: [],
         frontRecipes: [],
-        
+    },
+    modules: {
+        auth
     },
     getters: {
         allRecipes(state){
@@ -35,6 +38,7 @@ export const store = new Vuex.Store({
             })
         },
         retrieveRecipes(context){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
             axios.get('/api/recipes')
             .then(response => {
                 context.commit('retrieveRecipes', response.data)
@@ -44,6 +48,7 @@ export const store = new Vuex.Store({
             })
         },
         retrieveCategories(context){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
             axios.get('/api/categories')
             .then(response => {
                 context.commit('retrieveCategories', response.data)
@@ -60,6 +65,15 @@ export const store = new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
+        },
+        addCategory(context, data){
+            axios.post('/api/categories', data)
+                .then(response => {
+                  context.commit('addCategory', response.data)
+                })
+                .catch(error => {
+                  console.log(error)
+                })
         }
 },
     mutations: {
@@ -75,6 +89,12 @@ export const store = new Vuex.Store({
           deleteCategory(state, payload) {
             const index = state.categories.findIndex(item => item.id == payload)
             state.categories.splice(index, 1)
+          },
+          addCategory(state, payload) {
+            state.categories.push({
+              id: payload.id,
+              name: payload.name
+            })
           },
     }
 });

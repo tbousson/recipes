@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <Navbar></Navbar>
+        <Navbar :loggedIn="loggedIn"></Navbar>
         <div>
-        <router-view></router-view>
+        <router-view ></router-view>
         </div>
     </div>
     
@@ -17,7 +17,13 @@ export default {
     
     created(){
         console.log("App Created")
+    },
+    computed:{
+          loggedIn(){
+              return this.$store.getters.loggedIn
+          }
     }
+         
 
 }
 </script>

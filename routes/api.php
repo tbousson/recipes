@@ -19,6 +19,11 @@ use Illuminate\Http\Request;
 
 Route::namespace('API')->group(function () {
     Route::get('/front','FrontController@index');
+    Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('/categories','CategoryController');
     Route::apiResource('/recipes','RecipeController');
+    });
+
+    Route::post('/login','AuthController@login');
+    Route::middleware('auth:api')->post('logout','AuthController@logout');
     });
