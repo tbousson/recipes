@@ -60,5 +60,27 @@
   
   ```
 
+  authentication
+
+- Installeer laravel passport (composer, migrate, passport:install)
+
+  ```
+  composer require laravel/passport
+  php artisan migrate
+  php artisan passport:install
+  ```
+
+  
+
+  Paar puntjes waar het moeilijk ging:
+
+  
+
+  Laravel Passport logout error (logt wel uit maar geeft nog een error)
+
+  Wat problemen met Edit front end met modal.
+
+  Niet meer tot recepten crud geraakt.
+
   
 
