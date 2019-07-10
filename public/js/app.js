@@ -55350,7 +55350,10 @@ router.beforeEach(function (to, from, next) {
   })) {
     if (_store__WEBPACK_IMPORTED_MODULE_7__["store"].getters.loggedIn) {
       next({
-        name: 'home'
+        path: '/',
+        query: {
+          redirect: to.fullPath
+        }
       });
     } else {
       next();

@@ -62,7 +62,8 @@ router.beforeEach((to, from, next) => {
             } else if (to.matched.some(record => record.meta.notAuth)) {
               if (store.getters.loggedIn) {
                 next({
-                  name: 'home',
+                  path: '/',
+                  query: { redirect: to.fullPath }
                 })
               } else {
                 next()
