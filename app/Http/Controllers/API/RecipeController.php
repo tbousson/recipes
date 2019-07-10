@@ -5,7 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Recipe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Response;
+use Illuminate\Support\Facades\Validator;
 class RecipeController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        return Recipe::all();
     }
 
     /**
@@ -26,40 +27,52 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|String|min:2|unique:recipes,name',
+            'category_id' => 'required',
+            'ingredients' => 'required',
+            'directions' => 'required',
+            'time' => 'required',
+            'show' => 'required| boolean'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Recipe $recipe)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
+            return response()->json($validator->errors(), 422);
+        }
+        $recipe = Recipe::create($request->all());
+        return response($recipe);
+    }
+    
     public function update(Request $request, Recipe $recipe)
     {
-        //
+        
+        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|String|min:2|unique:recipes,name',
+            'category_id' => 'required',
+            'ingredients' => 'required',
+            'directions' => 'required',
+            'time' => 'required',
+            'show' => 'required| boolean'
+        ]);
+
+        if ($validator->fails()) {
+            
+
+            return response()->json($validator->errors(), 422);
+        }
+        
+        $recipe->update($request->all());
+        return response($recipe);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Recipe $recipe)
     {
-        //
+        $rec = $recipe->name;
+        $recipe->delete();
+        return response()->json("Category $rec has been Deleted");
     }
 }

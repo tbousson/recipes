@@ -19,7 +19,7 @@ class CreateRecipesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->text('ingredients');
             $table->text('directions');
-            $table->time('time');
+            $table->string('time');
             $table->boolean('show')->default(0);
             $table->timestamps();
             
