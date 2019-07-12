@@ -55758,7 +55758,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     msg: "test message",
     recipes: [],
     categories: [],
-    frontRecipes: []
+    frontRecipes: [],
+    token: window.localStorage.getItem('access_token') || null
   },
   modules: {
     auth: _modules_auth__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -55923,7 +55924,7 @@ var actions = {
 
     if (context.getters.loggedIn) {
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("api/logout").then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/logout").then(function (response) {
           localStorage.removeItem('access_token');
           context.commit('destroyToken');
           resolve(response);

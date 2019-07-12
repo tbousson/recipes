@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
         recipes: [],
         categories: [],
         frontRecipes: [],
+        token: window.localStorage.getItem('access_token') || null,
     },
     modules: {
         auth

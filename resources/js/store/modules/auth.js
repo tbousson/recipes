@@ -33,7 +33,7 @@ const actions = {
             
             if(context.getters.loggedIn){
                 return new Promise ((resolve,reject) => {
-                    axios.post("api/logout").then(response => {
+                    axios.post("/api/logout").then(response => {
                                         localStorage.removeItem('access_token')
                                         context.commit('destroyToken')
                                         resolve(response)
