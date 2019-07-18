@@ -10,12 +10,15 @@ export const store = new Vuex.Store({
         recipes: [],
         categories: [],
         frontRecipes: [],
-        
+        token: window.localStorage.getItem('access_token') || null,
     },
     modules: {
         auth
     },
     getters: {
+        loggedIn(state){
+          return state.token !== null
+        },
         allRecipes(state){
             return state.recipes
         },
@@ -28,6 +31,38 @@ export const store = new Vuex.Store({
         
     },
     actions: {
+      retrieveToken(context, credentials) {
+        return new Promise ((resolve,reject) => {
+        axios.post("/api/login", { 
+            username: credentials.username,
+            password: credentials.password
+        }).then(response => {const token = response.data.access_token;
+                                localStorage.setItem('access_token', token)
+                            context.commit('retrieveToken', token)
+                            
+                            resolve(response)
+                        }).catch(error=> {console.log(error)
+                        reject(error)})
+
+        })
+    },
+    destroyToken(context){
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token;
+        
+        if(context.getters.loggedIn){
+            return new Promise ((resolve,reject) => {
+                axios.post("/api/logout").then(response => {
+                                    localStorage.removeItem('access_token')
+                                    context.commit('destroyToken')
+                                    resolve(response)
+                                }).catch(error=> {
+                                context.commit('destroyToken')
+                                localStorage.removeItem('access_token')
+                                reject(error)})
+    
+                })
+        }
+    },
         retrieveFrontRecipes(context){
             axios.get('/api/front')
             .then(response => {
@@ -113,6 +148,12 @@ export const store = new Vuex.Store({
         },
 },
     mutations: {
+        retrieveToken(state, payload){
+            state.token = payload
+        },
+        destroyToken(state){
+            state.token = null
+        },
         retrieveFrontRecipes(state, payload) {
             state.frontRecipes = payload
           },
