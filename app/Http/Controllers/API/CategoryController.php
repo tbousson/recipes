@@ -28,9 +28,9 @@ class CategoryController extends Controller
         $category = Category::create($request->all());
         return response($category);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        return response($request);
+        
         $validator = Validator::make($request->all(), [
             'name' => "required|String|min:2|unique:categories,name,$category->id"
         ]);

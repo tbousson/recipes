@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
         recipes: [],
         categories: [],
         frontRecipes: [],
-        token: window.localStorage.getItem('access_token') || null,
+        
     },
     modules: {
         auth
@@ -78,6 +78,19 @@ export const store = new Vuex.Store({
                   console.log(error)
                 })
         },
+        updateCategory(context, data){
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+          axios.patch('/api/categories/'+ data.category.id, {
+            name: data.category.name
+          })
+              .then(response => {
+                
+                context.commit('updateCategory', response.data)
+              })
+              .catch(error => {
+                console.log(error)
+              })
+        },
         createRecipe(context, data){
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
             axios.post('/api/recipes', data)
@@ -117,6 +130,13 @@ export const store = new Vuex.Store({
             state.categories.push({
               id: payload.id,
               name: payload.name
+            })
+          },
+          updateCategory(state, payload) {
+            const index = state.categories.findIndex(item => item.id == payload.id)
+            state.categories.splice(index, 1, {
+              'id': payload.id,
+              'name': payload.name
             })
           },
           createRecipe(state, payload) {
